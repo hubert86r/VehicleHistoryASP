@@ -1,0 +1,16 @@
+﻿@model List<Cars>
+
+<h2>Szczegóły samochodu</h2>
+@foreach (var st in Model)
+    {
+        
+            
+            <p>Marka: @st.Make</p>
+            <p>Model: @st.Model</p>
+            <p>Przebieg: @st.InitialMileage</p>
+            <p>Termin następnego badania: @st.term_tech_exam</p>
+            <p>Koniec ubezpieczenia OC: @st.term_oc</p>
+            <p>Typ paliwa: @st.IdFuelType</p>
+            
+        
+    }

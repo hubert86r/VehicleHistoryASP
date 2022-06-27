@@ -1,0 +1,29 @@
+﻿@model List<Cars>
+
+<h1>Samochody</h1>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Marka</th>
+        <th>Model</th>
+        <th>Przebieg</th>
+        <th>Termin badania</th>
+        <th>Termin OC</th>
+        <th>Rodzaj paliwa</th>
+    </tr>
+    @foreach (var st in Model)
+    {
+        <tr>
+            <td>@st.IdCar</td>
+            <td>@st.Make</td>
+            <td>@st.Model</td>
+            <td>@st.InitialMileage</td>
+            <td>@st.term_tech_exam</td>
+            <td>@st.term_oc</td>
+            <td>@st.IdFuelType</td>
+            <td>
+                <a href="/cars/details/@st.IdCar" class="btn btn-primary">Pokaż szczgóły</a>
+            </td>
+        </tr>
+    }
+</table>
