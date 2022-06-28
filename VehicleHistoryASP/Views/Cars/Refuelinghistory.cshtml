@@ -1,0 +1,22 @@
+﻿@model List<RefuelingHistory>
+
+<h1>Historia tankowania</h1>
+<br />
+
+<table class="table">
+    <tr>
+        <th>Ilość</th>
+        <th>Cena</th>
+        <th>Data</th>
+        <th>Przebieg</th>
+    </tr>
+    @foreach (var st in Model)
+    {
+        <tr>
+            <td>@st.fuelQquantity</td>
+            <td>@st.price</td>
+            <td>@st.date</td>
+            <td>@st.milage</td>
+        </tr>
+    }
+</table>

@@ -52,7 +52,7 @@ namespace VehicleHistoryASP.Controllers
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name from Cars c
-join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
+                                join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
 
             con.Open();
             var dr = cmd.ExecuteReader();
@@ -108,6 +108,124 @@ join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
             int rowsAffected=cmd.ExecuteNonQuery();
 
             return RedirectToAction("Index");
+        }
+        public IActionResult Refuelingadd(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Refuelingadd(RefuelingAdd newRefueling,int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = @"insert into Refueling_History (id_car, fuel_quantity, price, date, milage) 
+                                values (@idCar, @fuelQuantity, @price, @date, @milage)";
+
+            cmd.Parameters.AddWithValue("@idCar", id);
+            cmd.Parameters.AddWithValue("@fuelQuantity", newRefueling.fuelQquantity);
+            cmd.Parameters.AddWithValue("@price", newRefueling.price);
+            cmd.Parameters.AddWithValue("@date", newRefueling.date);
+            cmd.Parameters.AddWithValue("@milage", newRefueling.milage);
+
+            con.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Refuelinghistory(int id)
+        {
+            using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"select id_car, fuel_quantity, price, date, milage from Refueling_History
+                                where id_car =" + id;
+
+            con.Open();
+            var dr = cmd.ExecuteReader();
+            // ExecuteReader - dane zwrotne 
+            // ExecuteNonQuery - brak danych zwrotnych insert, delete, update
+            var RefuelingHistory = new List<RefuelingHistory>();
+            while (dr.Read())
+            {
+                var refueling = new RefuelingHistory
+                {
+                    idCar = (int)dr["id_car"],
+                    fuelQquantity = dr["fuel_quantity"].ToString(),
+                    price = dr["price"].ToString(),
+                    date = (DateTime)dr["date"],
+                    milage = (int)dr["milage"]
+                };
+                RefuelingHistory.Add(refueling);
+            }
+
+            return View(RefuelingHistory);
+        }
+        public IActionResult Serviceadd(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Serviceadd(ServiceAdd newService, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = @"insert into Service_History (id_car, id_type, Dscription, date, milage, price ) 
+                                values (@idCar, @idType, @description, @date, @milage, @price)";
+
+            cmd.Parameters.AddWithValue("@idCar", id);
+            cmd.Parameters.AddWithValue("@idType", newService.idType);
+            cmd.Parameters.AddWithValue("@description", newService.description);
+            cmd.Parameters.AddWithValue("@date", newService.date);
+            cmd.Parameters.AddWithValue("@milage", newService.milage);
+            cmd.Parameters.AddWithValue("@price", newService.price);
+
+            con.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Servicehistory(int id)
+        {
+            using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = @"select name, Dscription, date, milage, price from Service_History sh
+                                join Service_Type st ON sh.id_type = st.id_type
+                                where id_car =" + id;
+
+            con.Open();
+            var dr = cmd.ExecuteReader();
+            // ExecuteReader - dane zwrotne 
+            // ExecuteNonQuery - brak danych zwrotnych insert, delete, update
+            var ServiceHistory = new List<ServiceHistory>();
+            while (dr.Read())
+            {
+                var service = new ServiceHistory
+                {
+                    type = dr["name"].ToString(),
+                    description = dr["Dscription"].ToString(),
+                    date = (DateTime)dr["date"],
+                    milage = (int)dr["milage"],
+                    price = dr["price"].ToString()
+                };
+                ServiceHistory.Add(service);
+            }
+
+            return View(ServiceHistory);
         }
     }
 
