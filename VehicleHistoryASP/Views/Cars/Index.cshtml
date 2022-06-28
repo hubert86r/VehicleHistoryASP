@@ -1,26 +1,28 @@
 ﻿@model List<Cars>
 
 <h1>Samochody</h1>
+
+<a href="/cars/caradd" class="btn btn-primary">Dodaj samochód</a>
+<br /><br />
+
+<form method="get">
+    <input type="text" id="search" name="search"/>
+    <button type="submit" class="btn btn-primary">Szukaj</button>
+</form>
+<br />
+
 <table class="table">
     <tr>
-        <th>Id</th>
         <th>Marka</th>
         <th>Model</th>
-        <th>Przebieg</th>
-        <th>Termin badania</th>
-        <th>Termin OC</th>
-        <th>Rodzaj paliwa</th>
+        <th>Numer rejestracji</th>
     </tr>
     @foreach (var st in Model)
     {
         <tr>
-            <td>@st.IdCar</td>
             <td>@st.Make</td>
             <td>@st.Model</td>
-            <td>@st.InitialMileage</td>
-            <td>@st.term_tech_exam</td>
-            <td>@st.term_oc</td>
-            <td>@st.IdFuelType</td>
+            <td>@st.LicensePlate</td>
             <td>
                 <a href="/cars/details/@st.IdCar" class="btn btn-primary">Pokaż szczgóły</a>
             </td>

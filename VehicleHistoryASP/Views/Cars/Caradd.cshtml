@@ -1,0 +1,61 @@
+﻿@model CarAdd
+
+<h2>Dodaj samochód</h2>
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label for="make">Marka</label>
+        <input asp-for="make" class="form-control" />
+        <span asp-validation-for="make"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="model">Model</label>
+        <input asp-for="model" class="form-control" />
+        <span asp-validation-for="model"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="initialMileage">Przebieg</label>
+        <input asp-for="initialMileage" class="form-control" />
+        <span asp-validation-for="initialMileage"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="licensePlate">Numer rejestracji</label>
+        <input asp-for="licensePlate" class="form-control" />
+        <span asp-validation-for="licensePlate"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="termTechExam">Termin badania technicznego</label>
+        <input asp-for="termTechExam" class="form-control" />
+        <span asp-validation-for="termTechExam"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="termOC">Ubezpieczenie OC</label>
+        <input asp-for="termOC" class="form-control" />
+        <span asp-validation-for="termOC"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="idFuelType">Rodzaj paliwa</label>
+        <select asp-for="idFuelType" class="form-control">
+            <option value="1">Benzyna</option>
+            <option value="2">Dizel</option>
+            <option value="3">LPG</option>
+        </select>
+        <span asp-validation-for="idFuelType"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    <button class="btn btn-primary" type="reset">Wyczyść</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

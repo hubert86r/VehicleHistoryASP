@@ -1,4 +1,4 @@
-﻿@model List<Cars>
+﻿@model List<CarDetails>
 
 <h2>Szczegóły samochodu</h2>
 @foreach (var st in Model)
@@ -8,9 +8,10 @@
             <p>Marka: @st.Make</p>
             <p>Model: @st.Model</p>
             <p>Przebieg: @st.InitialMileage</p>
-            <p>Termin następnego badania: @st.term_tech_exam</p>
-            <p>Koniec ubezpieczenia OC: @st.term_oc</p>
-            <p>Typ paliwa: @st.IdFuelType</p>
-            
+            <p>Termin następnego badania: @st.TermTechExam</p>
+            <p>Koniec ubezpieczenia OC: @st.TermOC</p>
+            <p>Typ paliwa: @st.FuelType</p>
+            <a href="/cars/Refueling/@st.IdCar" class="btn btn-primary">Dodaj tankowanie</a>
+            <a href="/cars/Service/@st.IdCar" class="btn btn-primary">Dodaj czynność serwisową</a>
         
     }
