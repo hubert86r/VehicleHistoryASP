@@ -51,7 +51,8 @@ namespace VehicleHistoryASP.Controllers
             using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name from Cars c
+            cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name, 
+		                        DATEDIFF(day, GETDATE(), term_tech_exam) as day_tech_exam, DATEDIFF(day, GETDATE(), term_oc) as day_oc  from Cars c
                                 join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
 
             con.Open();
@@ -69,7 +70,9 @@ namespace VehicleHistoryASP.Controllers
                     InitialMileage = dr["initial_mileage"].ToString(),
                     TermTechExam = (DateTime)dr["term_tech_exam"],
                     TermOC = (DateTime)dr["term_oc"],
-                    FuelType = dr["name"].ToString()
+                    FuelType = dr["name"].ToString(),
+                    DayTechExam = dr["day_tech_exam"].ToString(),
+                    DayOC = dr["day_oc"].ToString()
                 };
                 carsDetails.Add(car);
             }

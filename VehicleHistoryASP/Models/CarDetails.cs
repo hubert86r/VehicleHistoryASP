@@ -11,5 +11,7 @@ namespace VehicleHistoryASP.Models
         public DateTime TermTechExam { get; set; }
         public DateTime TermOC { get; set; }
         public string FuelType { get; set; }
+        public string DayTechExam { get; set; }
+        public string DayOC { get; set; }
     }
 }
