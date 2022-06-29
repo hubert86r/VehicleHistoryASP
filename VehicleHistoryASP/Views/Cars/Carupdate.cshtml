@@ -1,0 +1,29 @@
+﻿@model CarUpdate
+
+<h2>Aktualizuj dane</h2>
+
+<form method="post">
+    
+    <div class="form-group">
+        <label for="initialMileage">Przebieg</label>
+        <input asp-for="initialMileage" class="form-control" />  
+    </div>
+
+    <div class="form-group">
+        <label for="termTechExam">Termin badania technicznego</label>
+        <input asp-for="termTechExam" class="form-control" />  
+    </div>
+
+    <div class="form-group">
+        <label for="termOC">Ubezpieczenie OC</label>
+        <input asp-for="termOC" class="form-control" />  
+    </div>
+
+    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <button class="btn btn-success" type="submit">Aktualizuj</button>
+        <button class="btn btn btn-secondary" type="reset">Wyczyść</button>
+    </div>
+    
+</form>
+
+

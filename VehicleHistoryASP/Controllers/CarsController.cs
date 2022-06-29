@@ -79,6 +79,7 @@ namespace VehicleHistoryASP.Controllers
 
             return View(carsDetails);
         }
+        
         public IActionResult Caradd()
         {
             return View();
@@ -112,6 +113,7 @@ namespace VehicleHistoryASP.Controllers
 
             return RedirectToAction("Index");
         }
+
         public IActionResult Refuelingadd(int id)
         {
             return View();
@@ -229,6 +231,80 @@ namespace VehicleHistoryASP.Controllers
             }
 
             return View(ServiceHistory);
+        }
+        public IActionResult Carupdate(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Carupdate(CarUpdate CarUpdate, int id)
+        {
+            
+
+            using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            if (CarUpdate.initialMileage != 0 && CarUpdate.termTechExam.ToString() == "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() == "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set initial_mileage =@milage where id_car =" + id;
+                cmd.Parameters.AddWithValue("@milage", CarUpdate.initialMileage);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else if (CarUpdate.initialMileage == 0 && CarUpdate.termTechExam.ToString() != "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() == "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set term_tech_exam =@term_tech_exam where id_car =" + id;
+                cmd.Parameters.AddWithValue("@term_tech_exam", CarUpdate.termTechExam);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else if (CarUpdate.initialMileage == 0 && CarUpdate.termTechExam.ToString() == "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() != "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set term_oc =@termOC where id_car =" + id;
+                cmd.Parameters.AddWithValue("@termOC", CarUpdate.termOC);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else if (CarUpdate.initialMileage != 0 && CarUpdate.termTechExam.ToString() != "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() == "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set initial_mileage = @milage, term_tech_exam = @term_tech_exam where id_car =" + id;
+                cmd.Parameters.AddWithValue("@milage", CarUpdate.initialMileage);
+                cmd.Parameters.AddWithValue("@term_tech_exam", CarUpdate.termTechExam);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else if (CarUpdate.initialMileage != 0 && CarUpdate.termTechExam.ToString() == "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() != "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set initial_mileage = @milage, term_oc = @termOC where id_car =" + id;
+                cmd.Parameters.AddWithValue("@milage", CarUpdate.initialMileage);
+                cmd.Parameters.AddWithValue("@termOC", CarUpdate.termOC);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else if (CarUpdate.initialMileage == 0 && CarUpdate.termTechExam.ToString() != "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() != "01.01.0001 00:00:00")
+            {
+                cmd.CommandText = @"update Cars set term_tech_exam = @term_tech_exam, term_oc = @termOC where id_car =" + id;
+                cmd.Parameters.AddWithValue("@term_tech_exam", CarUpdate.termTechExam);
+                cmd.Parameters.AddWithValue("@termOC", CarUpdate.termOC);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                cmd.CommandText = @"update Cars set initial_mileage = @milage, term_tech_exam = @term_tech_exam, term_oc = @termOC where id_car =" + id;
+                cmd.Parameters.AddWithValue("@termOC", CarUpdate.termOC);
+                cmd.Parameters.AddWithValue("@term_tech_exam", CarUpdate.termTechExam);
+                cmd.Parameters.AddWithValue("@milage", CarUpdate.initialMileage);
+                con.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+            }
+
+
+            
+
+
+            return RedirectToAction("Index");
         }
     }
 
