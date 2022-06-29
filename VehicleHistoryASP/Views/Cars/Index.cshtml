@@ -2,20 +2,29 @@
 
 <h1>Samochody</h1>
 
-<a href="/cars/caradd" class="btn btn-primary">Dodaj samochód</a>
-<br /><br />
-
 <form method="get">
-    <input type="text" id="search" name="search"/>
-    <button type="submit" class="btn btn-primary">Szukaj</button>
+    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="input-group mb-3">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Numer rejestracji" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Szukaj</button>
+            </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="First group">
+            <div>
+                <a href="/cars/caradd" class="btn btn-primary">Dodaj samochód</a>
+            </div>   
+        </div>
+    </div>
 </form>
-<br />
 
 <table class="table">
+    <thead class="thead-light">
     <tr>
-        <th>Marka</th>
-        <th>Model</th>
-        <th>Numer rejestracji</th>
+        <th scope="col">Marka</th>
+        <th scope="col">Model</th>
+        <th scope="col">Numer rejestracji</th>
+        <th scope="col"></th>
     </tr>
     @foreach (var st in Model)
     {
@@ -24,7 +33,7 @@
             <td>@st.Model</td>
             <td>@st.LicensePlate</td>
             <td>
-                <a href="/cars/details/@st.IdCar" class="btn btn-primary">Pokaż szczgóły</a>
+                <a href="/cars/details/@st.IdCar" class="btn btn-outline-primary">Pokaż szczgóły</a>
             </td>
         </tr>
     }

@@ -3,18 +3,55 @@
 <h2>Szczegóły samochodu</h2>
 @foreach (var st in Model)
     {
-        
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/cars/refuelingadd/@st.IdCar">Dodaj tankowanie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cars/refuelinghistory/@st.IdCar">Historia tankowania</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cars/Serviceadd/@st.IdCar">Dodaj czynność serwisową</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cars/Servicehistory/@st.IdCar">Historia serwisowa</a>
+            </li>
+        </ul>
+
+
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <a href="/cars/refuelingadd/@st.IdCar" class="btn btn-primary">Dodaj tankowanie</a>
+                <a href="/cars/refuelinghistory/@st.IdCar" class="btn btn-primary">Historia tankowania</a>
+            </div>
+            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <a href="/cars/Serviceadd/@st.IdCar" class="btn btn-primary">Dodaj czynność serwisową</a>
+                <a href="/cars/Servicehistory/@st.IdCar" class="btn btn-primary">Historia serwisowa</a>
+            </div>
+        </div>
+        <br />
+        <dl class="row">
+            <dt class="col-sm-3">Marka</dt>
+            <dd class="col-sm-9">@st.Make</dd>
+
+            <dt class="col-sm-3">Model</dt>
+            <dd class="col-sm-9">@st.Model</dd>
+
+            <dt class="col-sm-3">Przebieg</dt>
+            <dd class="col-sm-9">@st.InitialMileage</dd>
+
+            <dt class="col-sm-3">Termin następnego badania</dt>
+            <dd class="col-sm-9">@st.TermTechExam</dd>
+
+            <dt class="col-sm-3">Koniec ubezpieczenia OC</dt>
+            <dd class="col-sm-9">@st.TermOC</dd>
+
+            <dt class="col-sm-3">Typ paliwa</dt>
+            <dd class="col-sm-9">@st.FuelType</dd>
+
+ 
+        </dl>
             
-            <p>Marka: @st.Make</p>
-            <p>Model: @st.Model</p>
-            <p>Przebieg: @st.InitialMileage</p>
-            <p>Termin następnego badania: @st.TermTechExam</p>
-            <p>Koniec ubezpieczenia OC: @st.TermOC</p>
-            <p>Typ paliwa: @st.FuelType</p>
-            <a href="/cars/refuelingadd/@st.IdCar" class="btn btn-primary">Dodaj tankowanie</a>
-            <a href="/cars/refuelinghistory/@st.IdCar" class="btn btn-primary">Historia tankowania</a>
-            <br /> <br />
-            <a href="/cars/Serviceadd/@st.IdCar" class="btn btn-primary">Dodaj czynność serwisową</a>
-            <a href="/cars/Servicehistory/@st.IdCar" class="btn btn-primary">Historia serwisowa</a>
+            
         
     }
