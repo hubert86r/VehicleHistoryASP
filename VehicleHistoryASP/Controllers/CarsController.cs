@@ -52,7 +52,9 @@ namespace VehicleHistoryASP.Controllers
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name, 
-		                        DATEDIFF(day, GETDATE(), term_tech_exam) as day_tech_exam, DATEDIFF(day, GETDATE(), term_oc) as day_oc  from Cars c
+		                        DATEDIFF(day, GETDATE(), term_tech_exam) as day_tech_exam, DATEDIFF(day, GETDATE(), term_oc) as day_oc,
+								actual_mileage, update_date, fuel_usage
+								from Cars c
                                 join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
 
             con.Open();
@@ -72,7 +74,10 @@ namespace VehicleHistoryASP.Controllers
                     TermOC = (DateTime)dr["term_oc"],
                     FuelType = dr["name"].ToString(),
                     DayTechExam = dr["day_tech_exam"].ToString(),
-                    DayOC = dr["day_oc"].ToString()
+                    DayOC = dr["day_oc"].ToString(),
+                    UpdateDate = (DateTime)dr["update_date"],
+                    ActualMileage = dr["actual_mileage"].ToString(),
+                    FuelUsage = dr["fuel_usage"].ToString()
                 };
                 carsDetails.Add(car);
             }
@@ -97,8 +102,8 @@ namespace VehicleHistoryASP.Controllers
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = @"insert into Cars (make, model, initial_mileage, term_tech_exam, term_oc, id_fuel_type, license_plate) 
-                                values (@make, @model, @initialMileage, @termTechExam, @termOC, @fuelType, @licensePlate)";
+            cmd.CommandText = @"insert into Cars (make, model, initial_mileage, term_tech_exam, term_oc, id_fuel_type, license_plate, actual_mileage, update_date) 
+                                values (@make, @model, @initialMileage, @termTechExam, @termOC, @fuelType, @licensePlate, @initialMileage, GETDATE())";
 
             cmd.Parameters.AddWithValue("@make", newCar.make);
             cmd.Parameters.AddWithValue("@model", newCar.model);
@@ -149,7 +154,7 @@ namespace VehicleHistoryASP.Controllers
             using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"select id_car, fuel_quantity, price, date, milage from Refueling_History
+            cmd.CommandText = @"select id_car, fuel_quantity, price, date, milage, ROUND((price*fuel_quantity),2) as cost, fuel_usage from Refueling_History
                                 where id_car =" + id;
 
             con.Open();
@@ -165,7 +170,9 @@ namespace VehicleHistoryASP.Controllers
                     fuelQquantity = dr["fuel_quantity"].ToString(),
                     price = dr["price"].ToString(),
                     date = (DateTime)dr["date"],
-                    milage = (int)dr["milage"]
+                    milage = (int)dr["milage"],
+                    cost = dr["cost"].ToString(),
+                    fuelUsage = dr["fuel_usage"].ToString()
                 };
                 RefuelingHistory.Add(refueling);
             }

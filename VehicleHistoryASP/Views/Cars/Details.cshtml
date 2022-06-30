@@ -41,13 +41,16 @@
             <dd class="col-sm-9">@st.Model</dd>
 
             <dt class="col-sm-3">Stan licznika</dt>
-            <dd class="col-sm-9">@st.InitialMileage</dd>
+            <dd class="col-sm-9">@st.ActualMileage z dnia @st.UpdateDate</dd>
 
             <dt class="col-sm-3">Badanie techniczne ważne jeszcze</dt>
             <dd class="col-sm-9">@st.DayTechExam dni do @st.TermTechExam</dd>
 
             <dt class="col-sm-3">Ubezpieczenie OC ważne jeszcze</dt>
             <dd class="col-sm-9">@st.DayOC dni do @st.TermOC</dd>
+
+            <dt class="col-sm-3">Spalanie po ostatnim tankowaniu</dt>
+            <dd class="col-sm-9">@st.FuelUsage l/100km</dd>
 
             <dt class="col-sm-3">Typ paliwa</dt>
             <dd class="col-sm-9">@st.FuelType</dd>

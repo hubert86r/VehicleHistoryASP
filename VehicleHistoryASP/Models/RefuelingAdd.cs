@@ -8,9 +8,11 @@ namespace VehicleHistoryASP.Models
         
         public int idCar { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane")]
-        public float fuelQquantity { get; set; }
+        [RegularExpression(@"^[0-9]{1,3}(\.+[0-9]{0,2}){0,1}$")]
+        public string fuelQquantity { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane")]
-        public float price { get; set; }
+        [RegularExpression(@"^[0-9]{1,2}(\.+[0-9]{0,2}){0,1}$")]
+        public string price { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane")]
         public DateTime date { get; set; }
         [Required(ErrorMessage = "Pole jest wymagane")]

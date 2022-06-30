@@ -13,5 +13,8 @@ namespace VehicleHistoryASP.Models
         public string FuelType { get; set; }
         public string DayTechExam { get; set; }
         public string DayOC { get; set; }
+        public string ActualMileage { get; set; }
+        public DateTime UpdateDate { get; set; }
+        public string FuelUsage { get; set; }
     }
 }

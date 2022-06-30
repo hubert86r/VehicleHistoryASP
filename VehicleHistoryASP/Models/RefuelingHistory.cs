@@ -13,5 +13,9 @@ namespace VehicleHistoryASP.Models
         public DateTime date { get; set; }
         
         public int milage { get; set; }
+
+        public string cost { get; set; }
+
+        public string fuelUsage { get; set; }
     }
 }
