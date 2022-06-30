@@ -147,7 +147,7 @@ namespace VehicleHistoryASP.Controllers
             con.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
         public IActionResult Refuelinghistory(int id)
         {

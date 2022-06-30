@@ -1,6 +1,6 @@
 ﻿@model List<CarDetails>
 
-<h2>Szczegóły samochodu</h2>
+
 @foreach (var st in Model)
     {
         <ul class="nav justify-content-end">
@@ -21,18 +21,8 @@
             </li>
         </ul>
 
-
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <a href="/cars/refuelingadd/@st.IdCar" class="btn btn-primary">Dodaj tankowanie</a>
-                <a href="/cars/refuelinghistory/@st.IdCar" class="btn btn-primary">Historia tankowania</a>
-            </div>
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-                <a href="/cars/Serviceadd/@st.IdCar" class="btn btn-primary">Dodaj czynność serwisową</a>
-                <a href="/cars/Servicehistory/@st.IdCar" class="btn btn-primary">Historia serwisowa</a>
-            </div>
-        </div>
-        <br />
+        <h2>Szczegóły samochodu</h2>
+        
         <dl class="row">
             <dt class="col-sm-3">Marka</dt>
             <dd class="col-sm-9">@st.Make</dd>
