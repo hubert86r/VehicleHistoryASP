@@ -158,7 +158,7 @@ namespace VehicleHistoryASP.Controllers
             con.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
 
-            return RedirectToAction("index");
+            return RedirectToAction("details", new { id = id });
         }
         public IActionResult Refuelinghistory(int id)
         {
@@ -219,7 +219,7 @@ namespace VehicleHistoryASP.Controllers
             con.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("details", new { id = id });
         }
         public IActionResult Servicehistory(int id)
         {
@@ -322,7 +322,7 @@ namespace VehicleHistoryASP.Controllers
             
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("details", new { id = id });
         }
     }
 
