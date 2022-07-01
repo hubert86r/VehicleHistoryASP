@@ -3,51 +3,97 @@
 
 @foreach (var st in Model)
     {
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link active" href="/cars/carupdate/@st.IdCar">Aktualizuj dane</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/cars/refuelingadd/@st.IdCar">Dodaj tankowanie</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/cars/refuelinghistory/@st.IdCar">Historia tankowania</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/cars/Serviceadd/@st.IdCar">Dodaj czynność serwisową</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/cars/Servicehistory/@st.IdCar">Historia serwisowa</a>
-            </li>
-        </ul>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <h2>Szczegóły samochodu</h2>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/cars/carupdate/@st.IdCar">Aktualizuj dane</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/cars/refuelingadd/@st.IdCar">Dodaj tankowanie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cars/refuelinghistory/@st.IdCar">Historia tankowania</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cars/Serviceadd/@st.IdCar">Dodaj czynność serwisową</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cars/Servicehistory/@st.IdCar">Historia serwisowa</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
         
-        <dl class="row">
-            <dt class="col-sm-3">Marka</dt>
-            <dd class="col-sm-9">@st.Make</dd>
-
-            <dt class="col-sm-3">Model</dt>
-            <dd class="col-sm-9">@st.Model</dd>
-
-            <dt class="col-sm-3">Stan licznika</dt>
-            <dd class="col-sm-9">@st.ActualMileage z dnia @st.UpdateDate</dd>
-
-            <dt class="col-sm-3">Badanie techniczne ważne jeszcze</dt>
-            <dd class="col-sm-9">@st.DayTechExam dni do @st.TermTechExam</dd>
-
-            <dt class="col-sm-3">Ubezpieczenie OC ważne jeszcze</dt>
-            <dd class="col-sm-9">@st.DayOC dni do @st.TermOC</dd>
-
-            <dt class="col-sm-3">Spalanie po ostatnim tankowaniu</dt>
-            <dd class="col-sm-9">@st.FuelUsage l/100km</dd>
-
-            <dt class="col-sm-3">Typ paliwa</dt>
-            <dd class="col-sm-9">@st.FuelType</dd>
-
- 
-        </dl>
             
+        <div class="card" style="width: 70rem;">
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <h3 class="card-title">@st.Make @st.Model</h3>
+                
+                <dl class="row">              
+                    <dd class="col-sm-3">Numer rejestracji</dd>
+                    <dt class="col-sm-9">@st.LicensePlate</dt>
+                   
+                    <dd class="col-sm-3">Stan licznika</dd>
+                    <dt class="col-sm-9">@st.ActualMileage</dt>
+                    <dd class="col-sm-3">z dnia</dd>
+                    <dd class="col-sm-9 font-weight-light">@st.UpdateDate</dd>
+                </dl>              
+            </li>
+            <li class="list-group-item">
+                <dl class="row">
+                    <dd class="col-sm-3">Badanie techniczne ważne jeszce</dd>
+                    <dt class="col-sm-9">@st.DayTechExam dni </dt>
+                    <dd class="col-sm-3">do</dd>
+                    <dd class="col-sm-9 font-weight-light">@st.TermTechExam</dd>
+
+                    <dd class="col-sm-3">Ubezpieczenie OC ważne jeszcze</dd>
+                    <dt class="col-sm-9">@st.DayOC dni</dt>
+                    <dd class="col-sm-3">do</dd>
+                    <dd class="col-sm-9 font-weight-light">@st.TermOC</dd>
+                </dl>
+            </li>
+            <li class="list-group-item">
+                <dl class="row">
+                    <dd class="col-sm-3">Spalanie po ostatnim tankowaniu</dd>
+                    <dt class="col-sm-9">@st.FuelUsage l/100km</dt>
+
+                    <dd class="col-sm-3">Typ paliwa</dd>
+                    <dt class="col-sm-9">@st.FuelType</dt>
+                </dl>
+            </li>
+            <li class="list-group-item">
+                <dl class="row">                                   
+                    <dd class="col-sm-3">Wymień olej za</dd>
+                    <dd class="col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-4">@st.OilDay dni</dt>
+                            <dd class="col-sm-8 font-weight-light">do @st.OilDate</dd>
+                            <dt class="col-sm-4">@st.OilMilageLeft km</dt>
+                            <dd class="col-sm-8 font-weight-light">przy stanie licznika @st.OilMilage</dd>
+                        </dl>
+                    </dd>
+                    <dd class="col-sm-3">Wymień rozrząd za</dd>
+                    <dd class="col-sm-9">
+                        <dl class="row">
+                            <dt class="col-sm-4">@st.TimingDay dni</dt>
+                            <dd class="col-sm-8 font-weight-light">do @st.TimingDate</dd>
+                            <dt class="col-sm-4">@st.TimingMilageLeft km</dt>
+                            <dd class="col-sm-8 font-weight-light">przy stanie licznika @st.TimingMilage</dd>
+                        </dl>
+                    </dd>                   
+                </dl>
+            </li>
+            </ul>
+        </div>
             
         
     }

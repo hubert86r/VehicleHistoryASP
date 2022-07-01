@@ -1,8 +1,49 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<CarDetails>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+<table class="table">
+    <thead class="table thead-light">
+    <tr>
+        <th scope="col">Marka</th>
+        <th scope="col">Model</th>
+        <th scope="col">Numer rejestracji</th>
+        <th scope="col">Badanie techniczne</th>
+        <th scope="col">Ubezpieczenie OC</th>
+        <th scope="col" colspan="2">Wymiana oleju</th>
+        <th scope="col" colspan="2">Wymiana rozrządu</th>
+        <th scope="col" colspan="2"></th>
+        
+        
+    </tr>
+     <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">[dni]</th>
+        <th scope="col">[dni]</th>
+        <th scope="col">[dni]</th>
+        <th scope="col">[km]</th>
+        <th scope="col">[dni]</th>
+        <th scope="col">[km]</th>
+        <th scope="col"></th>
+        
+    </tr>
+    @foreach (var st in Model)
+    {
+        <tr>
+            <td>@st.Make</td>
+            <td>@st.Model</td>
+            <td>@st.LicensePlate</td>
+            <td>@st.DayTechExam</td>
+            <td>@st.DayOC</td>
+            <td>@st.OilDay</td>
+            <td>@st.OilMilageLeft</td>
+            <td>@st.TimingDay</td>
+            <td>@st.TimingMilageLeft</td>
+            <td>
+                <a href="/cars/details/@st.IdCar" class="btn btn-outline-primary">Szczgóły</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -16,5 +16,14 @@ namespace VehicleHistoryASP.Models
         public string ActualMileage { get; set; }
         public DateTime UpdateDate { get; set; }
         public string FuelUsage { get; set; }
+        public DateTime OilDate { get; set; }
+        public string OilDay { get; set; }
+        public string OilMilage { get; set; }
+        public string OilMilageLeft { get; set; }
+        public DateTime TimingDate { get; set; }
+        public string TimingDay { get; set; }
+        public string TimingMilage { get; set; }
+        public string TimingMilageLeft { get; set; }
+        public string LicensePlate { get; set; }
     }
 }

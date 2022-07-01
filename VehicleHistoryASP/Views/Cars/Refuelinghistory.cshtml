@@ -6,20 +6,28 @@
 <table class="table">
     <thead class="thead-light">
     <tr>
-        <th>Ilość [l]</th>
-        <th>Cena [zł]</th>
-        <th>Koszt [zł]</th>
         <th>Data</th>
-        <th>Przebieg [km]</th>
-        <th>Spalanie [l/100km]</th>
+        <th>Ilość</th>
+        <th>Cena</th>
+        <th>Koszt</th>
+        <th>Przebieg</th>
+        <th>Spalanie</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>[l]</th>
+        <th>[zł]</th>
+        <th>[zł]</th>
+        <th>[km]</th>
+        <th>[l/100km]</th>
     </tr>
     @foreach (var st in Model)
     {
         <tr>
+            <td>@st.date</td>
             <td>@st.fuelQquantity</td>
             <td>@st.price</td>
             <td>@st.cost</td>
-            <td>@st.date</td>
             <td>@st.milage</td>
             <td>@st.fuelUsage</td>
         </tr>

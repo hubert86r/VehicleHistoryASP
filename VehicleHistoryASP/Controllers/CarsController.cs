@@ -51,9 +51,11 @@ namespace VehicleHistoryASP.Controllers
             using SqlConnection con = new SqlConnection("Data Source=HP-HUBERT;Initial Catalog=Vehicles;Integrated Security=True");
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
-            cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name, 
+            cmd.CommandText = @"select id_car, make, model, initial_mileage, term_tech_exam, term_oc, name, license_plate, 
 		                        DATEDIFF(day, GETDATE(), term_tech_exam) as day_tech_exam, DATEDIFF(day, GETDATE(), term_oc) as day_oc,
-								actual_mileage, update_date, fuel_usage
+								actual_mileage, update_date, fuel_usage, 
+                                oil_date, DATEDIFF(day, GETDATE(), oil_date) as oil_day, oil_milage, (oil_milage - actual_mileage) as oil_milage_left, 
+                                timing_date, DATEDIFF(day, GETDATE(), timing_date) as timing_day, timing_milage, (timing_milage - actual_mileage) as timing_milage_left
 								from Cars c
                                 join Fuel_Type ft ON c.id_fuel_type = ft.id_fuel_type where id_car =" + id;
 
@@ -73,11 +75,20 @@ namespace VehicleHistoryASP.Controllers
                     TermTechExam = (DateTime)dr["term_tech_exam"],
                     TermOC = (DateTime)dr["term_oc"],
                     FuelType = dr["name"].ToString(),
+                    LicensePlate = dr["license_plate"].ToString(),
                     DayTechExam = dr["day_tech_exam"].ToString(),
                     DayOC = dr["day_oc"].ToString(),
                     UpdateDate = (DateTime)dr["update_date"],
                     ActualMileage = dr["actual_mileage"].ToString(),
-                    FuelUsage = dr["fuel_usage"].ToString()
+                    FuelUsage = dr["fuel_usage"].ToString(),
+                    OilDate = (DateTime)dr["oil_date"],
+                    OilDay = dr["oil_day"].ToString(),
+                    OilMilage = dr["oil_milage"].ToString(),
+                    OilMilageLeft = dr["oil_milage_left"].ToString(),
+                    TimingDate = (DateTime)dr["timing_date"],
+                    TimingDay = dr["timing_day"].ToString(),
+                    TimingMilage = dr["timing_milage"].ToString(),
+                    TimingMilageLeft = dr["timing_milage_left"].ToString()
                 };
                 carsDetails.Add(car);
             }
@@ -102,8 +113,8 @@ namespace VehicleHistoryASP.Controllers
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = @"insert into Cars (make, model, initial_mileage, term_tech_exam, term_oc, id_fuel_type, license_plate, actual_mileage, update_date) 
-                                values (@make, @model, @initialMileage, @termTechExam, @termOC, @fuelType, @licensePlate, @initialMileage, GETDATE())";
+            cmd.CommandText = @"insert into Cars (make, model, initial_mileage, term_tech_exam, term_oc, id_fuel_type, license_plate, actual_mileage, update_date, oil_date, timing_date, oil_milage, timing_milage) 
+                                values (@make, @model, @initialMileage, @termTechExam, @termOC, @fuelType, @licensePlate, @initialMileage, GETDATE(), DATEADD(YEAR, 1, GETDATE()), DATEADD(YEAR, 5, GETDATE()), (@initialMileage + 15000), (@initialMileage + 80000))";
 
             cmd.Parameters.AddWithValue("@make", newCar.make);
             cmd.Parameters.AddWithValue("@model", newCar.model);
@@ -155,7 +166,7 @@ namespace VehicleHistoryASP.Controllers
             using SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             cmd.CommandText = @"select id_car, fuel_quantity, price, date, milage, ROUND((price*fuel_quantity),2) as cost, fuel_usage from Refueling_History
-                                where id_car =" + id;
+                                where id_car =" + id+"order by date desc";
 
             con.Open();
             var dr = cmd.ExecuteReader();
@@ -217,7 +228,7 @@ namespace VehicleHistoryASP.Controllers
             cmd.Connection = con;
             cmd.CommandText = @"select name, Dscription, date, milage, price from Service_History sh
                                 join Service_Type st ON sh.id_type = st.id_type
-                                where id_car =" + id;
+                                where id_car =" + id + "order by date desc";
 
             con.Open();
             var dr = cmd.ExecuteReader();
@@ -254,7 +265,7 @@ namespace VehicleHistoryASP.Controllers
 
             if (CarUpdate.initialMileage != 0 && CarUpdate.termTechExam.ToString() == "01.01.0001 00:00:00" && CarUpdate.termOC.ToString() == "01.01.0001 00:00:00")
             {
-                cmd.CommandText = @"update Cars set initial_mileage =@milage where id_car =" + id;
+                cmd.CommandText = @"update Cars set actual_mileage =@milage where id_car =" + id;
                 cmd.Parameters.AddWithValue("@milage", CarUpdate.initialMileage);
                 con.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
